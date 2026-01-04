@@ -22,7 +22,7 @@ func FindUserByID(id uint) (*models.User, error) {
 
 func FindUserByEmail(email string) (*models.User, error) {
 	var user models.User
-	err := database.DB.Where("email = ?", email).Find(&user).Error
+	err := database.DB.Where("email = ?", email).First(&user).Error
 	if err != nil {
 		return nil, err
 	}

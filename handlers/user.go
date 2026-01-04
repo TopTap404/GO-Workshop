@@ -5,6 +5,7 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 
+	"workshop/middleware"
 	"workshop/services"
 )
 
@@ -101,6 +102,35 @@ func DeleteUser(c *fiber.Ctx) error {
 		return c.Status(500).JSON(fiber.Map{"error": err.Error()})
 	}
 	return c.SendStatus(204)
+}
+
+// GetMyProfile: ดึงโปรไฟล์จาก token ที่แนบมา (ไม่ต้องใส่ id)
+func GetMyProfile(c *fiber.Ctx) error {
+	userID := middleware.UserIDFromContext(c)
+	if userID == 0 {
+		return c.Status(401).JSON(fiber.Map{"error": "invalid token"})
+	}
+
+	user, err := services.GetProfile(userID)
+	if err != nil {
+		if err == services.ErrNotFound {
+			return c.Status(404).JSON(fiber.Map{"error": "not found"})
+		}
+		return c.Status(500).JSON(fiber.Map{"error": err.Error()})
+	}
+
+	// อย่าส่ง password กลับ
+	return c.JSON(fiber.Map{
+		"id":           user.ID,
+		"name":         user.Name,
+		"last_name":    user.LastName,
+		"email":        user.Email,
+		"phone_number": user.PhoneNumber,
+		"address":      user.Address,
+		"address_info": user.AddressInfo,
+		"created_at":   user.CreatedAt,
+		"updated_at":   user.UpdatedAt,
+	})
 }
 
 func parseID(raw string) (uint, error) {

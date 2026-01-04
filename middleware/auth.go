@@ -45,3 +45,29 @@ func Auth(c *fiber.Ctx) error {
 
 	return c.Next()
 }
+
+// UserIDFromContext ดึง user_id จาก JWT claims ที่เราเก็บใน Locals
+// jwt.MapClaims จะเก็บเลขเป็น float64 (เพราะ JSON decode) เลยต้องแปลง
+func UserIDFromContext(c *fiber.Ctx) uint {
+	v := c.Locals("user_id")
+	switch n := v.(type) {
+	case float64:
+		return uint(n)
+	case string:
+		// GenerateAccessToken ใช้ fmt.Sprintf("%d") เลย sub เป็น string
+		var id uint
+		_, err := fmt.Sscanf(n, "%d", &id)
+		if err != nil {
+			return 0
+		}
+		return id
+	case int:
+		return uint(n)
+	case int64:
+		return uint(n)
+	case uint:
+		return n
+	default:
+		return 0
+	}
+}

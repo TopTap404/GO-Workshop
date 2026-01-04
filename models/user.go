@@ -11,6 +11,7 @@ type User struct {
 	Email    string `json:"email" gorm:"size:255;uniqueIndex;not null"`
 	Password string `json:"-" gorm:"not null"`
 
+	CitizenID   string `json:"citizenid" gorm:"not null"`
 	PhoneNumber string `json:"phone_number"`
 	Address     string `json:"address"`
 	AddressInfo string `json:"address_info"`

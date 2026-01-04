@@ -17,6 +17,7 @@ type CreateUserInput struct {
 	LastName    string
 	Email       string
 	Password    string
+	CitizenID   string
 	PhoneNumber string
 	Address     string
 	AddressInfo string
@@ -27,6 +28,7 @@ func (in *CreateUserInput) Normalize() {
 	in.LastName = strings.TrimSpace(in.LastName)
 	in.Email = strings.ToLower(strings.TrimSpace(in.Email))
 	in.Password = strings.TrimSpace(in.Password)
+	in.CitizenID = strings.TrimSpace(in.CitizenID)
 	in.PhoneNumber = strings.TrimSpace(in.PhoneNumber)
 	in.Address = strings.TrimSpace(in.Address)
 	in.AddressInfo = strings.TrimSpace(in.AddressInfo)
@@ -77,6 +79,7 @@ func CreateUser(in *CreateUserInput) (*models.User, error) {
 		LastName:    in.LastName,
 		Email:       in.Email,
 		Password:    string(hashed),
+		CitizenID:   in.CitizenID,
 		PhoneNumber: in.PhoneNumber,
 		Address:     in.Address,
 		AddressInfo: in.AddressInfo,
@@ -127,4 +130,16 @@ func UpdateUser(id uint, name, email *string) (*models.User, error) {
 
 func DeleteUser(id uint) error {
 	return repositories.DeleteUserByID(id)
+}
+
+// GetProfile ดึงข้อมูลผู้ใช้จาก userID (ปกติใช้หลัง Auth middleware)
+func GetProfile(userID uint) (*models.User, error) {
+	user, err := repositories.FindUserByID(userID)
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, ErrNotFound
+		}
+		return nil, err
+	}
+	return user, nil
 }

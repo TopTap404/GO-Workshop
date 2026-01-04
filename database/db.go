@@ -40,10 +40,13 @@ func ConnectAndMigrate() error {
 
 	DB = db
 
-	if err := DB.AutoMigrate(&models.User{}); err != nil {
-		return fmt.Errorf("auto migrate: %w", err)
-	}
-	if err := DB.AutoMigrate(&models.Product{}); err != nil {
+	if err := DB.AutoMigrate(
+		&models.User{},
+		&models.Product{},
+		&models.Promotion{},
+		&models.Cart{},
+		&models.CartItem{},
+	); err != nil {
 		return fmt.Errorf("auto migrate: %w", err)
 	}
 	return nil
