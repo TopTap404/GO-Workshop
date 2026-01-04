@@ -1,0 +1,7 @@
+.git
+*.db
+*.exe
+bin/
+dist/
+node_modules/
+**/.DS_Store
