@@ -104,7 +104,6 @@ func DeleteUser(c *fiber.Ctx) error {
 	return c.SendStatus(204)
 }
 
-// GetMyProfile: ดึงโปรไฟล์จาก token ที่แนบมา (ไม่ต้องใส่ id)
 func GetMyProfile(c *fiber.Ctx) error {
 	userID := middleware.UserIDFromContext(c)
 	if userID == 0 {
@@ -119,7 +118,6 @@ func GetMyProfile(c *fiber.Ctx) error {
 		return c.Status(500).JSON(fiber.Map{"error": err.Error()})
 	}
 
-	// อย่าส่ง password กลับ
 	return c.JSON(fiber.Map{
 		"id":           user.ID,
 		"name":         user.Name,

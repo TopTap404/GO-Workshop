@@ -2,7 +2,6 @@ package models
 
 import "time"
 
-// Cart: 1 user มี 1 cart และสามารถผูก Promotion ได้ 1 ตัว
 type Cart struct {
 	ID          uint       `json:"id" gorm:"primaryKey"`
 	UserID      uint       `json:"user_id" gorm:"uniqueIndex;not null"`

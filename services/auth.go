@@ -11,14 +11,14 @@ import (
 func GenerateAccessToken(userID uint, email string) (token string, expiresIn int, err error) {
 	secret := []byte(os.Getenv("JWT_SECRET"))
 	if len(secret) == 0 {
-		secret = []byte("dev-secret") // workshop fallback
+		secret = []byte("dev-secret")
 	}
 
 	ttl := time.Hour
 	now := time.Now()
 
 	claims := jwt.MapClaims{
-		"sub":   fmt.Sprintf("%d", userID), // user id
+		"sub":   fmt.Sprintf("%d", userID),
 		"email": email,
 		"iat":   now.Unix(),
 		"exp":   now.Add(ttl).Unix(),

@@ -7,7 +7,6 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-// Logger prints basic request info and latency.
 func Logger() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		start := time.Now()

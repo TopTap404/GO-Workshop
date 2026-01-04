@@ -132,7 +132,6 @@ func DeleteUser(id uint) error {
 	return repositories.DeleteUserByID(id)
 }
 
-// GetProfile ดึงข้อมูลผู้ใช้จาก userID (ปกติใช้หลัง Auth middleware)
 func GetProfile(userID uint) (*models.User, error) {
 	user, err := repositories.FindUserByID(userID)
 	if err != nil {

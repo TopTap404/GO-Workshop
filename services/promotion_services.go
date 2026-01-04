@@ -34,7 +34,6 @@ func CreatePromotion(in *CreatePromotionInput) (*models.Promotion, error) {
 		return nil, ErrInvalidInput
 	}
 
-	// ต้องมี product อยู่จริง
 	if _, err := repositories.FindProductByID(in.ProductID); err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return nil, ErrNotFound
@@ -80,7 +79,7 @@ func UpdatePromotion(id uint, code *string, discountAmount *float64, productID *
 		if *productID == 0 {
 			return nil, ErrInvalidInput
 		}
-		// ต้องมี product อยู่จริง
+
 		if _, err := repositories.FindProductByID(*productID); err != nil {
 			if errors.Is(err, gorm.ErrRecordNotFound) {
 				return nil, ErrNotFound

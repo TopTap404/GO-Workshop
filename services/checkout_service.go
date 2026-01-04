@@ -38,7 +38,7 @@ func Checkout(userID uint) (*models.Order, error) {
 		items = append(items, models.OrderItem{
 			ProductID: it.ProductID,
 			Quantity:  int(it.Quantity),
-			Price:     product.Price, // ราคาต่อชิ้น
+			Price:     product.Price,
 		})
 	}
 

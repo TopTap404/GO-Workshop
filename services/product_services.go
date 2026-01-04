@@ -94,7 +94,6 @@ func UpdateProduct(id uint, name *string, info *string, price *float64) (*models
 		return nil, err
 	}
 
-	// reload เพื่อให้ response ตรง DB
 	if product, err := repositories.FindProductByID(id); err != nil {
 		return product, err
 	}
