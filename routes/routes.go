@@ -27,13 +27,11 @@ func Setup(app *fiber.App) {
 	protected.Patch("/products/:id", handlers.UpdateProduct)
 	protected.Delete("/products/:id", handlers.DeleteProduct)
 
-	// Promotions
 	protected.Get("/promotions", handlers.ListPromotions)
 	protected.Post("/promotions", handlers.CreatePromotion)
 	protected.Patch("/promotions/:id", handlers.UpdatePromotion)
 	protected.Delete("/promotions/:id", handlers.DeletePromotion)
 
-	// Cart
 	protected.Get("/cart", handlers.GetMyCart)
 	protected.Post("/cart/items", handlers.AddItemToCart)
 	protected.Patch("/cart/items/:productId", handlers.UpdateMyCartItem)

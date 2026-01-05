@@ -58,7 +58,7 @@ func GetUser(id uint) (*models.User, error) {
 func CreateUser(in *CreateUserInput) (*models.User, error) {
 	in.Normalize()
 
-	if in.Name == "" || in.LastName == "" || in.Email == "" || in.Password == "" || in.PhoneNumber == "" || in.Address == "" || in.AddressInfo == "" {
+	if in.Name == "" || in.LastName == "" || in.Email == "" || in.Password == "" || in.CitizenID == "" || in.PhoneNumber == "" || in.Address == "" || in.AddressInfo == "" {
 		return nil, ErrInvalidInput
 	}
 

@@ -15,6 +15,7 @@ type CreateUserRequest struct {
 	Email       string `json:"email"`
 	Password    string `json:"password"`
 	PhoneNumber string `json:"phone_number"`
+	CitizenID   string `json:"citizen_id"`
 	Address     string `json:"address"`
 	AddressInfo string `json:"address_info"`
 }
@@ -60,6 +61,7 @@ func CreateUser(c *fiber.Ctx) error {
 		Email:       req.Email,
 		Password:    req.Password,
 		PhoneNumber: req.PhoneNumber,
+		CitizenID:   req.CitizenID,
 		Address:     req.Address,
 		AddressInfo: req.AddressInfo,
 	})
